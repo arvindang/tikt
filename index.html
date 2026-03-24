@@ -166,8 +166,9 @@
       min-height: 100svh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0 clamp(3rem, 8vw, 10rem);
       background: url('assets/Gemini_Generated_Image_h65cubh65cubh65c.png') center/cover no-repeat;
     }
 
@@ -186,8 +187,7 @@
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 680px;
-      padding: 0 1.5rem;
+      max-width: 600px;
     }
 
     .hero-eyebrow {
@@ -216,6 +216,7 @@
     .hero-title em {
       font-style: normal;
       color: var(--terracotta);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
     }
 
     .hero-sub {
@@ -223,7 +224,7 @@
       color: var(--cream-warm);
       line-height: 1.7;
       max-width: 480px;
-      margin: 0 auto 2.5rem;
+      margin: 0 0 2.5rem;
       opacity: 0;
       animation: fadeInUp 0.8s ease 0.4s forwards;
     }
@@ -707,6 +708,16 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
 
+      .hero {
+        justify-content: center;
+        text-align: center;
+        padding: 0 1.5rem;
+      }
+
+      .hero-sub {
+        margin: 0 auto 2.5rem;
+      }
+
       .product-grid {
         grid-template-columns: 1fr;
         text-align: center;
@@ -861,8 +872,8 @@
         <p class="eyebrow reveal">Coming Soon</p>
         <h2 class="section-title reveal" style="transition-delay: 0.1s">Be First to Taste</h2>
         <p class="signup-sub reveal" style="transition-delay: 0.2s">Tikt is launching soon in Chicago. Drop your email and we'll let you know when the first batch is ready.</p>
-        <form class="signup-form reveal" id="signupForm" style="transition-delay: 0.3s">
-          <input type="email" placeholder="your@email.com" required aria-label="Email address">
+        <form class="signup-form reveal" id="signupForm" action="https://formspree.io/f/mdapnkej" method="POST" style="transition-delay: 0.3s">
+          <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address">
           <button type="submit" class="btn btn-primary">Notify Me</button>
         </form>
         <p class="signup-fine reveal" style="transition-delay: 0.35s">No spam. Just one email when we launch.</p>
@@ -925,13 +936,31 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = form.querySelector('input[type="email"]').value;
-      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        form.style.display = 'none';
-        form.previousElementSibling.style.display = 'none'; // hide subtitle
-        form.nextElementSibling.style.display = 'none'; // hide fine print
-        thanks.classList.add('show');
-      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+      const btn = form.querySelector('button');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      }).then(res => {
+        if (res.ok) {
+          form.style.display = 'none';
+          form.previousElementSibling.style.display = 'none';
+          form.nextElementSibling.style.display = 'none';
+          thanks.classList.add('show');
+        } else {
+          btn.textContent = 'Try Again';
+          btn.disabled = false;
+        }
+      }).catch(() => {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+      });
     });
   </script>
+  <script data-goatcounter="https://arvindang.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
