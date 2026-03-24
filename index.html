@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tikt | Bitter is Beautiful</title>
+  <meta name="description" content="The first canned Americano cocktail. Soda water, Campari, sweet vermouth. Handcrafted in Chicago.">
+  <meta property="og:title" content="Tikt | Bitter is Beautiful">
+  <meta property="og:description" content="Aperitivo seltzer. Coming soon.">
+  <meta property="og:image" content="assets/Gemini_Generated_Image_h65cubh65cubh65c.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9830;</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal: #1a1a1a;
+      --charcoal-soft: #2a2a28;
+      --terracotta: #c47a5a;
+      --terracotta-light: #d4956f;
+      --terracotta-dark: #a8624a;
+      --amber: #d4a574;
+      --cream: #f5efe6;
+      --cream-warm: #ede4d6;
+      --cream-dark: #c4b8a8;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--cream);
+      background: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+      height: 72px;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(26, 26, 26, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-warm);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--terracotta);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--cream);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--charcoal);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--terracotta);
+    }
+
+    .menu-open .nav-hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+    .menu-open .nav-hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-open .nav-hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('assets/Gemini_Generated_Image_h65cubh65cubh65c.png') center/cover no-repeat;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.35) 0%,
+        rgba(26, 26, 26, 0.25) 40%,
+        rgba(26, 26, 26, 0.65) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      padding: 0 1.5rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: var(--cream-warm);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--charcoal);
+    }
+
+    .btn-primary:hover {
+      background: var(--terracotta-light);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .hero-cta {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.2s forwards;
+    }
+
+    .scroll-indicator span {
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--cream-dark));
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ---- BRAND STATEMENT ---- */
+    .brand-statement {
+      background: var(--cream);
+      padding: clamp(5rem, 12vh, 9rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+    }
+
+    .brand-statement-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--terracotta);
+      margin: 0 auto 3rem;
+    }
+
+    .brand-statement-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      line-height: 1.5;
+      color: var(--charcoal);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .brand-statement-note {
+      font-size: 0.9375rem;
+      color: var(--cream-dark);
+      letter-spacing: 0.05em;
+      font-style: italic;
+    }
+
+    /* ---- PRODUCT SHOWCASE ---- */
+    .product {
+      background: var(--charcoal);
+      padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .product-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .product-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(196, 122, 90, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .product-image-wrap img {
+      max-height: 75vh;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-info {
+      max-width: 480px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 2.5rem;
+    }
+
+    .ingredient {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--charcoal-soft);
+    }
+
+    .ingredient:first-of-type {
+      border-top: 1px solid var(--charcoal-soft);
+    }
+
+    .ingredient-name {
+      font-weight: 500;
+      font-size: 1.0625rem;
+      color: var(--cream);
+      margin-bottom: 0.35rem;
+    }
+
+    .ingredient-desc {
+      font-size: 0.9375rem;
+      color: var(--cream-dark);
+      line-height: 1.6;
+    }
+
+    .product-specs {
+      margin-top: 2.5rem;
+      font-size: 0.8125rem;
+      letter-spacing: 0.1em;
+      color: var(--cream-dark);
+      text-transform: uppercase;
+    }
+
+    /* ---- LIFESTYLE BREAKS ---- */
+    .lifestyle {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lifestyle img {
+      width: 100%;
+      display: block;
+    }
+
+    .lifestyle-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .lifestyle-1 .lifestyle-overlay {
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        var(--charcoal) 100%
+      );
+    }
+
+    .lifestyle-2 .lifestyle-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.15) 0%,
+        rgba(26, 26, 26, 0.5) 60%,
+        var(--charcoal) 100%
+      );
+    }
+
+    .lifestyle-2-text {
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .lifestyle-2-text p {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.75rem, 1.2vw, 0.9375rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-warm);
+    }
+
+    /* ---- RITUAL ---- */
+    .ritual {
+      background: var(--cream);
+      padding: clamp(5rem, 12vh, 9rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .ritual-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--charcoal);
+      text-align: center;
+      margin-bottom: clamp(3rem, 6vh, 5rem);
+    }
+
+    .ritual-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .ritual-card {
+      border-top: 2px solid var(--terracotta);
+      padding: 2rem 1.25rem 1.5rem;
+    }
+
+    .ritual-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 3rem;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .ritual-card-title {
+      font-weight: 500;
+      font-size: 1.0625rem;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+    }
+
+    .ritual-card-desc {
+      font-size: 0.9375rem;
+      color: var(--charcoal);
+      opacity: 0.6;
+      line-height: 1.65;
+    }
+
+    /* ---- SIGNUP ---- */
+    .signup {
+      background: var(--charcoal);
+      padding: clamp(6rem, 14vh, 10rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+      position: relative;
+    }
+
+    .signup::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(196, 122, 90, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .signup-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .signup .section-title {
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .signup-sub {
+      font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+      color: var(--cream-warm);
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .signup-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 480px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .signup-form input[type="email"] {
+      flex: 1;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      padding: 1rem 1.5rem;
+      border-radius: 100px;
+      border: 1px solid var(--cream-dark);
+      background: transparent;
+      color: var(--cream);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .signup-form input[type="email"]::placeholder {
+      color: var(--cream-dark);
+    }
+
+    .signup-form input[type="email"]:focus {
+      border-color: var(--terracotta);
+    }
+
+    .signup-form button {
+      flex-shrink: 0;
+    }
+
+    .signup-fine {
+      font-size: 0.75rem;
+      color: var(--cream-dark);
+      letter-spacing: 0.03em;
+    }
+
+    .signup-thanks {
+      display: none;
+    }
+
+    .signup-thanks.show {
+      display: block;
+    }
+
+    .signup-thanks p {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: var(--cream);
+      line-height: 1.5;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .signup-thanks .signup-fine {
+      margin-top: 1rem;
+      animation: fadeIn 0.6s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      background: var(--charcoal);
+      padding: 3rem clamp(1.5rem, 5vw, 3rem) 4rem;
+      text-align: center;
+    }
+
+    .footer-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--charcoal-soft);
+      margin: 0 auto 3rem;
+    }
+
+    .footer-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.25rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-tagline {
+      font-style: italic;
+      font-size: 0.9375rem;
+      color: var(--cream-dark);
+      margin-bottom: 2rem;
+    }
+
+    .footer-legal {
+      font-size: 0.75rem;
+      color: var(--cream-dark);
+      opacity: 0.7;
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .revealed {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal, .reveal-left, .reveal-right {
+        opacity: 1;
+        transform: none;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav { height: 60px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .product-image-wrap img {
+        max-height: 50vh;
+        margin: 0 auto;
+      }
+
+      .product-info {
+        max-width: 100%;
+      }
+
+      .ritual-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .signup-form {
+        flex-direction: column;
+      }
+
+      .signup-form button {
+        width: 100%;
+      }
+
+      .lifestyle-2-text {
+        white-space: normal;
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-wordmark">Tikt</a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#drink">The Drink</a></li>
+      <li><a href="#ritual">Ritual</a></li>
+      <li><a href="#join">Join</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#story" class="mobile-link">Story</a>
+    <a href="#drink" class="mobile-link">The Drink</a>
+    <a href="#ritual" class="mobile-link">Ritual</a>
+    <a href="#join" class="mobile-link">Join</a>
+  </div>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Aperitivo Seltzer</p>
+        <h1 class="hero-title">Bitter is<br><em>Beautiful</em></h1>
+        <p class="hero-sub">The first canned Americano cocktail. Soda water, Campari, sweet vermouth. Nothing else.</p>
+        <div class="hero-cta">
+          <a href="#join" class="btn btn-primary">Join the Waitlist</a>
+        </div>
+      </div>
+      <div class="scroll-indicator"><span></span></div>
+    </section>
+
+    <!-- Brand Statement -->
+    <section class="brand-statement" id="story">
+      <div class="brand-statement-rule reveal"></div>
+      <p class="brand-statement-text reveal" style="transition-delay: 0.1s">
+        Not everything worth drinking is sweet. Tikt is the aperitivo hour, uncorked from the bottle and slipped into a can.
+      </p>
+      <p class="brand-statement-note reveal" style="transition-delay: 0.2s">
+        Tikt (noun): bitter, in Sanskrit
+      </p>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="product" id="drink">
+      <div class="product-grid">
+        <div class="product-image-wrap reveal-left">
+          <img src="assets/Gemini_Generated_Image_jy5hlrjy5hlrjy5h.png" alt="Tikt can — Bitter digestif, a savory seltzer" loading="lazy">
+        </div>
+        <div class="product-info reveal-right">
+          <p class="eyebrow">The Americano</p>
+          <h2 class="section-title">Three ingredients.<br>Centuries of tradition.</h2>
+          <div class="ingredient">
+            <p class="ingredient-name">Soda Water</p>
+            <p class="ingredient-desc">The crisp backbone. Bright, effervescent, clean.</p>
+          </div>
+          <div class="ingredient">
+            <p class="ingredient-name">Campari</p>
+            <p class="ingredient-desc">The soul. Bitter orange, gentian root, aromatic complexity.</p>
+          </div>
+          <div class="ingredient">
+            <p class="ingredient-name">Sweet Vermouth</p>
+            <p class="ingredient-desc">The warmth. Botanicals, caramel depth, a velvet finish.</p>
+          </div>
+          <p class="product-specs">330ML &nbsp;|&nbsp; 5% ABV &nbsp;|&nbsp; All Natural &nbsp;|&nbsp; Handcrafted in Chicago</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifestyle Break 1 -->
+    <section class="lifestyle lifestyle-1">
+      <img src="assets/Gemini_Generated_Image_fh0xyofh0xyofh0x.png" alt="Friends enjoying Tikt in a sunlit park" loading="lazy">
+      <div class="lifestyle-overlay"></div>
+    </section>
+
+    <!-- The Ritual -->
+    <section class="ritual" id="ritual">
+      <h2 class="ritual-heading reveal">The Ritual</h2>
+      <div class="ritual-grid">
+        <div class="ritual-card reveal" style="transition-delay: 0s">
+          <p class="ritual-number">01</p>
+          <p class="ritual-card-title">Chill</p>
+          <p class="ritual-card-desc">Straight from the fridge. Tikt is best at 38&ndash;42&deg;F.</p>
+        </div>
+        <div class="ritual-card reveal" style="transition-delay: 0.15s">
+          <p class="ritual-number">02</p>
+          <p class="ritual-card-title">Pour (or don't)</p>
+          <p class="ritual-card-desc">Over ice in a rocks glass, or sip it straight from the can. No judgment.</p>
+        </div>
+        <div class="ritual-card reveal" style="transition-delay: 0.3s">
+          <p class="ritual-number">03</p>
+          <p class="ritual-card-title">Garnish</p>
+          <p class="ritual-card-desc">A dried orange peel. A Castelvetrano olive. A twist of grapefruit. Make it yours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifestyle Break 2 -->
+    <section class="lifestyle lifestyle-2">
+      <img src="assets/Gemini_Generated_Image_z6wxy7z6wxy7z6wx.png" alt="Couple enjoying Tikt at an outdoor Mediterranean table" loading="lazy">
+      <div class="lifestyle-overlay"></div>
+      <div class="lifestyle-2-text reveal">
+        <p>Handcrafted in Chicago. Inspired by everywhere.</p>
+      </div>
+    </section>
+
+    <!-- Email Signup -->
+    <section class="signup" id="join">
+      <div class="signup-inner">
+        <p class="eyebrow reveal">Coming Soon</p>
+        <h2 class="section-title reveal" style="transition-delay: 0.1s">Be First to Taste</h2>
+        <p class="signup-sub reveal" style="transition-delay: 0.2s">Tikt is launching soon in Chicago. Drop your email and we'll let you know when the first batch is ready.</p>
+        <form class="signup-form reveal" id="signupForm" style="transition-delay: 0.3s">
+          <input type="email" placeholder="your@email.com" required aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Notify Me</button>
+        </form>
+        <p class="signup-fine reveal" style="transition-delay: 0.35s">No spam. Just one email when we launch.</p>
+        <div class="signup-thanks" id="signupThanks">
+          <p>You're on the list.<br>We'll be in touch.</p>
+          <p class="signup-fine">Keep an eye on your inbox.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-rule"></div>
+    <p class="footer-wordmark">Tikt</p>
+    <p class="footer-tagline">Bitter is beautiful.</p>
+    <p class="footer-legal">&copy; 2026 Tikt Beverage Co. Handcrafted in Chicago, IL. Must be 21+ to purchase.</p>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      nav.classList.toggle('menu-open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        nav.classList.remove('menu-open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Scroll reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Email signup
+    const form = document.getElementById('signupForm');
+    const thanks = document.getElementById('signupThanks');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[type="email"]').value;
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        form.style.display = 'none';
+        form.previousElementSibling.style.display = 'none'; // hide subtitle
+        form.nextElementSibling.style.display = 'none'; // hide fine print
+        thanks.classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>
